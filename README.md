@@ -1,0 +1,2 @@
+# ollama
+playing with ollama
