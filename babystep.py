@@ -17,24 +17,21 @@ initial_prompt = "as a prompt engineer, write an interesting prompt for an LLM. 
 responses = []
 
 
-def asker(prompt, epochs):
+def asker(starter, epochs):
     for _ in range(epochs): 
-        prompt = initial_prompt
-        request = {
-            "model": "gemma",
-            "prompt": prompt,
-            "options": {}
-            }
-        response = ollama.chat(request)
+        response = ollama.generate(
+            model = "llama2",
+            prompt = starter
+            )
         st.write(f"response {_ + 1}: {response}")
-        prompt = response
-        responses.append(response['message']['content'])
+        prompt = response['prompt']
+        responses.append(response['response'])
 
 def main():
     st.title("after alvin lucier \n\n")
     st.write(lucier_quote)
     st.write("the starter-prompt: ", initial_prompt + "\n")
-    if st.button('Start Interaction'):
+    if st.button('roll the reel'):
         asker(initial_prompt, epochs)
         st.header("responses: ")
         for idx, response in enumerate(responses):

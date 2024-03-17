@@ -9,7 +9,7 @@ def asker(initial_prompt, epochs):
     prompt = initial_prompt
     
     for _, in range(epochs): 
-        response = ollama.ask(prompt)
+        response = ollama.generate(prompt)
         st.write(f"response {_ + 1}: {response}")
         prompt = response
         
