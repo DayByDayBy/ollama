@@ -7,8 +7,8 @@ import streamlit as st
     
 prompt  = 'if we do, what shall we want?'
 
-prompt2 = 'write an interesting prompt for an LLM, one designed to produce an interesting reply that is also a prompt'
-prompt3 = 'as a prompt engineer, write an interesting prompt for an LLM, one designed to produce an interesting reply that is also a prompt'
+prompt2 = 'write an interesting prompt for an LLM. it should be framed as a request for an interesting prompt'
+prompt3 = 'as a prompt engineer, write an interesting prompt for an LLM. it should be framed as a request for an interesting prompt'
 
 
 # # with st.chat_message("assistant"):

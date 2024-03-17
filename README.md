@@ -1,2 +1,4 @@
 # ollama
-playing with ollama
+
+playing with ollama, streamlit
+
