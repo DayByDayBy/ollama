@@ -12,21 +12,20 @@ frequencies of the room articulated by speech. I regard this activity
 not so much as a demonstration of a physical fact, but more as 
 a way to smooth out any irregularities my speech might have."   -  Alvin Lucier'''
 
-   
-initial_prompt = '''as a prompt engineer, write an interesting prompt for an LLM. it should be framed as a request for an interesting prompt'''
 epochs = 7
-request = {
-    "model": "gemma",
-    "prompt": initial_prompt,
-    "options": {}
-}
+initial_prompt = "as a prompt engineer, write an interesting prompt for an LLM. it should be framed as a request for an interesting prompt"
 responses = []
 
 
-def asker(initial_prompt, epochs):
-    prompt = initial_prompt
+def asker(prompt, epochs):
     for _ in range(epochs): 
-        response = ollama.chat(prompt)
+        prompt = initial_prompt
+        request = {
+            "model": "gemma",
+            "prompt": prompt,
+            "options": {}
+            }
+        response = ollama.chat(request)
         st.write(f"response {_ + 1}: {response}")
         prompt = response
         responses.append(response['message']['content'])
