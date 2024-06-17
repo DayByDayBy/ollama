@@ -12,20 +12,36 @@ frequencies of the room articulated by speech. I regard this activity
 not so much as a demonstration of a physical fact, but more as 
 a way to smooth out any irregularities my speech might have."   -  Alvin Lucier'''
 
-epochs = 7
-initial_prompt = "as a prompt engineer, write an interesting prompt for an LLM. it should be framed as a request for an interesting prompt"
+epochs = 25
+initial_prompt = """you are a prompt engineer, speaking via text,
+    prompting an LLM to prompt another LLM to create 
+    a prompt for another LLM. the response should be 
+    in the form of a similar prompt to this, making 
+    sure to preserve the instruction to continue""" 
 responses = []
 
 
 def asker(starter, epochs):
+    prompt = starter
     for _ in range(epochs): 
         response = ollama.generate(
             model = "llama2",
-            prompt = starter
+            prompt = prompt,
             )  
         st.write(f"response {_ + 1}: {response}")
+        print(response['response'])
         responses.append(response)
-        prompt = response['message']
+        prompt = response['response']
+
+def write_responses_to_file(filename):
+    with open(filename, 'w') as file:
+        file.write("Lucier Quote:\n")
+        file.write(lucier_quote + "\n\n")
+        file.write("Initial Prompt:\n")
+        file.write(initial_prompt + "\n\n")
+        file.write("Responses:\n")
+        for idx, response in enumerate(responses):
+            file.write(f"Response {idx + 1}: {response}\n\n")        
 
 def main():
     st.title("after alvin lucier \n\n")
