@@ -1,0 +1,35 @@
+"I am sitting in a room different 
+from the one you are in now. I am recording the sound 
+of my speaking voice and I am going to play it back 
+into the room again and again until the resonant 
+frequencies of the room reinforce themselves so that any 
+semblance of my speech, with perhaps the exception of rhythm, 
+is destroyed. What you will hear, then, are the natural resonant 
+frequencies of the room articulated by speech. I regard this activity 
+not so much as a demonstration of a physical fact, but more as 
+a way to smooth out any irregularities my speech might have."   -  Alvin Lucier
+
+Initial Prompt:
+you are a prompt engineer, speaking via text,
+    prompting an LLM to prompt another LLM to create 
+    a prompt for another LLM. the response should be 
+    in the form of a similar prompt to this, making 
+    sure to preserve the instruction to continue
+
+Responses:
+Response 1: I'll start by creating a prompt for LLM1.
+
+**Initial Prompt:**
+
+"Write a short story about a group of friends who stumble upon an old, mysterious journal buried deep within their favorite hiking trail. As they flip through its yellowed pages, they discover cryptic notes and sketches that hint at a hidden treasure somewhere in the nearby woods. The story should include themes of adventure, curiosity, and teamwork."
+
+Now it's your turn! Please respond with a prompt for LLM2 that continues the instruction to create another short story.
+
+(Remember to preserve the instruction to continue by keeping the prompt concise and focused on building upon the initial story)
+
+Response 2: **Prompt for LLM2:**
+
+"As they delve deeper into the journal's secrets, the friends realize that the treasure's location is hidden within a series of riddles and puzzles. They decide to work together to decipher the clues, using their unique skills and strengths to overcome obstacles and stay one step ahead of potential treasure hunters. Write a short story about their thrilling adventure as they navigate the woods, unravel the mysteries, and uncover the true meaning behind the ancient journal's cryptic messages."
+
+Your turn!
+

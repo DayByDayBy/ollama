@@ -1,4 +1,4 @@
-from langchain import ollama
+import ollama
 # import nlu
 import numpy as np
 import streamlit as st

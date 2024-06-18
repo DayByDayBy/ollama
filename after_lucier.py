@@ -1,6 +1,11 @@
 import ollama
 import streamlit as st
 
+from datetime import datetime
+
+time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
+model_name = "llama3"
+
 lucier_quote = '''"I am sitting in a room different 
 from the one you are in now. I am recording the sound 
 of my speaking voice and I am going to play it back 
@@ -25,18 +30,19 @@ def asker(starter, epochs):
     prompt = starter
     for _ in range(epochs): 
         response = ollama.generate(
-            model = "llama2",
+            model = model_name,
             prompt = prompt,
-            )  
+            )['response']
         st.write(f"response {_ + 1}: {response}")
-        print(response['response'])
+        print(response)
         responses.append(response)
-        prompt = response['response']
+        prompt = response
+    write_responses_to_file(responses)
 
 def write_responses_to_file(filename):
+    time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
+    filename = f'./output/after_lucier_{model_name}_{time_stamp}.txt'
     with open(filename, 'w') as file:
-        file.write("Lucier Quote:\n")
-        file.write(lucier_quote + "\n\n")
         file.write("Initial Prompt:\n")
         file.write(initial_prompt + "\n\n")
         file.write("Responses:\n")
@@ -45,7 +51,7 @@ def write_responses_to_file(filename):
 
 def main():
     st.title("after alvin lucier \n\n")
-    st.write(lucier_quote)
+    # st.write(lucier_quote)
     st.write("the starter-prompt: ", initial_prompt + "\n")
     if st.button('roll the reel'):
         asker(initial_prompt, epochs)
