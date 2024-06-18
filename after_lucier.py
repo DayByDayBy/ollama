@@ -20,11 +20,10 @@ background: rgba(0,0,0,0);
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 
-
-
-
 time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
 model_name = "llama3"
+
+
 
 lucier_quote = '''I am sitting in a room different 
 from the one you are in now. I am recording the sound 
@@ -37,7 +36,36 @@ frequencies of the room articulated by speech. I regard this activity
 not so much as a demonstration of a physical fact, but more as 
 a way to smooth out any irregularities my speech might have.'''
 
-epochs = 13
+lucier_prompt = '''regard this famous sound-art experiment:
+
+"I am sitting in a room different 
+from the one you are in now. I am recording the sound 
+of my speaking voice and I am going to play it back 
+into the room again and again until the resonant 
+frequencies of the room reinforce themselves so that any 
+semblance of my speech, with perhaps the exception of rhythm, 
+is destroyed. What you will hear, then, are the natural resonant 
+frequencies of the room articulated by speech. I regard this activity 
+not so much as a demonstration of a physical fact, but more as 
+a way to smooth out any irregularities my speech might have."
+
+design an analogous experiment for prompting an LLM.
+
+ideally, you would create a single prompt a few sentences long.
+
+ideally, the prompt would result in an answer that can be used as a prompt.
+'''
+
+
+echo_chamber_prompt =  '''"output a random sequence of 
+words, and then i shall do so back to you, until the 
+underlying patterns and structures of natural 
+language are amplified. we are hoping to get a distilled 
+representation of linguistic frequencies, stripped of 
+any personal bias or contextual information. This echo 
+chamber will reveal communication"'''
+
+epochs = 50
 
 initial_prompt_a = """you are a prompt engineer, speaking via text,
     prompting an LLM to prompt another LLM to create 
@@ -63,14 +91,14 @@ def asker(starter, epochs):
         print(_, response)
         responses.append(response)
         prompt = response
-    write_responses_to_file(responses)
+    write_responses_to_file(prompt)
 
-def write_responses_to_file(filename):
+def write_responses_to_file(prompt, filename):
     time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
     filename = f'./output/after_lucier_{model_name}_{time_stamp}.txt'
     with open(filename, 'w') as file:
         file.write("Initial Prompt:\n")
-        file.write(initial_prompt_a + "\n\n")
+        file.write(prompt + "\n\n")
         for idx, response in enumerate(responses):
             file.write(f"Response {idx + 1}: {response}\n\n")        
 
@@ -83,6 +111,31 @@ def main():
 
     # st.write(lucier_quote)
     # st.write(initial_prompt_a + "\n\n" + initial_prompt_b + "\n\n")
+          
+    if st.button('after lucier', use_container_width = True):
+        asker(lucier_prompt, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f":blue[response number {idx +1}: {response}]")   
+    st.write('\n\n')
+    if st.button('echo chamber', use_container_width = True):
+        asker(echo_chamber_prompt, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}")   
+    st.write('\n\n')
+    st.write('\n\n')
+    st.write('\n\n')   
+    st.write('\n\n')
+    st.write('\n\n')   
+    if st.button('sitting in a room', use_container_width = True):
+        asker(lucier_quote, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}")   
+    st.write('\n\n')
+    st.write('\n\n')
+    st.write('\n\n')    
     if st.button('prompting loop a', use_container_width = True):
         asker(initial_prompt_a, epochs)
         st.header("responses: ")
@@ -97,12 +150,11 @@ def main():
         asker(initial_prompt_c, epochs)
         st.header("responses: ")
         for idx, response in enumerate(responses):
-            st.write(f"response number {idx +1}: {response}")  
-    if st.button('sitting in a room', use_container_width = True):
-        asker(lucier_quote, epochs)
-        st.header("responses: ")
-        for idx, response in enumerate(responses):
-            st.write(f"response number {idx +1}: {response}")            
+            st.write(f"response number {idx +1}: {response}")
+    st.write('\n\n')
+    st.write('\n\n')
+    st.write('\n\n')    
+          
             
 if __name__ == "__main__":
     main()
