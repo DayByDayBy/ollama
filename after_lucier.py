@@ -65,6 +65,39 @@ representation of linguistic frequencies, stripped of
 any personal bias or contextual information. This echo 
 chamber will reveal communication"'''
 
+echoing_categories_prompt = '''I am creating a list of 
+seemingly unrelated categories (e.g., animals, cities, 
+foods). You will then generate a new category by combining 
+two existing ones in an unexpected way (e.g., 'flying fish' 
+or 'Parisian sushi'). We will repeat this process multiple 
+times, each time combining the previous result with another 
+category to create an even more unusual pairing. What you 
+will generate is a stream of novel categories that blur 
+the boundaries between different semantic fields. Use 
+these prompts to create new categories by iterating 
+through the combinations and see how they evolve over time.'''
+
+essay_prompt = '''provide an outline and preliminary plan for each of the following essays: 
+
+1. Chrono-synclastic inflections of causality manipulation
+2. Echo-topography of existential echo chambers
+3. Fluxodynamics of fluidic fractal formations
+4. Geotropisms of gravitational wave resonance
+5. Holographic linguistics of hyper-dimensional semiotics
+6. Infrasound ontologies of invisible acoustic realms
+7. Kaleidoscopic kinematics of quantum cascade dynamics
+8. Mesoscopic mythology of miniature multiverse narratives
+9. Non-local harmonic analysis of non-causal connectivity
+10.Precognitive probability theory of precognitive precursors
+
+
+feel free to suggest reading material, or any other information worth including.
+
+'''
+
+
+
+
 epochs = 50
 
 initial_prompt_a = """you are a prompt engineer, speaking via text,
@@ -93,7 +126,7 @@ def asker(starter, epochs):
         prompt = response
     write_responses_to_file(prompt)
 
-def write_responses_to_file(prompt, filename):
+def write_responses_to_file(prompt):
     time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
     filename = f'./output/after_lucier_{model_name}_{time_stamp}.txt'
     with open(filename, 'w') as file:
@@ -116,13 +149,25 @@ def main():
         asker(lucier_prompt, epochs)
         st.header("responses: ")
         for idx, response in enumerate(responses):
-            st.write(f":blue[response number {idx +1}: {response}]")   
+            st.write(f"response number {idx +1}: {response}")   
     st.write('\n\n')
     if st.button('echo chamber', use_container_width = True):
         asker(echo_chamber_prompt, epochs)
         st.header("responses: ")
         for idx, response in enumerate(responses):
             st.write(f"response number {idx +1}: {response}")   
+    st.write('\n\n')
+    if st.button('echoing categories', use_container_width = True):
+        asker(echoing_categories_prompt, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}")       
+    st.write('\n\n')
+    if st.button('essay outlines', use_container_width = True):
+        asker(essay_prompt, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}") 
     st.write('\n\n')
     st.write('\n\n')
     st.write('\n\n')   
