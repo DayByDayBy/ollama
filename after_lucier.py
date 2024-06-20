@@ -98,7 +98,7 @@ feel free to suggest reading material, or any other information worth including.
 
 
 
-epochs = 50
+epochs = 10
 
 initial_prompt_a = """you are a prompt engineer, speaking via text,
     prompting an LLM to prompt another LLM to create 
@@ -199,6 +199,44 @@ def main():
     st.write('\n\n')
     st.write('\n\n')
     st.write('\n\n')    
+    
+    
+    # yeh but what if
+    
+    if st.button('do them all', use_container_width = True):
+        asker(lucier_quote, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}")
+        asker(lucier_prompt, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}")  
+        asker(echo_chamber_prompt, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}") 
+        asker(echoing_categories_prompt, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}")
+        asker(initial_prompt_a, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}")                   
+        asker(initial_prompt_b, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}") 
+        asker(initial_prompt_c, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}")     
+        asker(essay_prompt, epochs)
+        st.header("responses: ")
+        for idx, response in enumerate(responses):
+            st.write(f"response number {idx +1}: {response}") 
+    
           
             
 if __name__ == "__main__":
