@@ -12,7 +12,8 @@ Body:
 Discuss how chrono-synclastic inflections can be used to manipulate causality (e.g., through wormholes or closed timelike curves)
 Explore the implications of such manipulations on our understanding of free will and determinism
 Conclusion: Summarize the potential consequences of manipulating causality and the need for further research
-Recommended reading: "The Fabric of the Cosmos" by Brian Greene, "A Brief History of Time" by Stephen Hawking
+
+**Recommended reading:** "The Fabric of the Cosmos" by Brian Greene, "A Brief History of Time" by Stephen Hawking
 
 ________________________________________________________________
 
