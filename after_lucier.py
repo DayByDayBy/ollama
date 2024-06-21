@@ -205,35 +205,13 @@ def main():
     
     if st.button('do them all', use_container_width = True):
         asker(lucier_quote, epochs)
-        st.header("responses: ")
-        for idx, response in enumerate(responses):
-            st.write(f"response number {idx +1}: {response}")
-        asker(lucier_prompt, epochs)
-        st.header("responses: ")
-        for idx, response in enumerate(responses):
-            st.write(f"response number {idx +1}: {response}")  
+        asker(lucier_prompt, epochs) 
         asker(echo_chamber_prompt, epochs)
-        st.header("responses: ")
-        for idx, response in enumerate(responses):
-            st.write(f"response number {idx +1}: {response}") 
         asker(echoing_categories_prompt, epochs)
-        st.header("responses: ")
-        for idx, response in enumerate(responses):
-            st.write(f"response number {idx +1}: {response}")
-        asker(initial_prompt_a, epochs)
-        st.header("responses: ")
-        for idx, response in enumerate(responses):
-            st.write(f"response number {idx +1}: {response}")                   
+        asker(initial_prompt_a, epochs)                
         asker(initial_prompt_b, epochs)
-        st.header("responses: ")
-        for idx, response in enumerate(responses):
-            st.write(f"response number {idx +1}: {response}") 
-        asker(initial_prompt_c, epochs)
-        st.header("responses: ")
-        for idx, response in enumerate(responses):
-            st.write(f"response number {idx +1}: {response}")     
+        asker(initial_prompt_c, epochs)   
         asker(essay_prompt, epochs)
-        st.header("responses: ")
         for idx, response in enumerate(responses):
             st.write(f"response number {idx +1}: {response}") 
     
