@@ -18,3 +18,7 @@ response = ollama.generate(
 )['response']
 
 print(response)
+
+
+
+    
