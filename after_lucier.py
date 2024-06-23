@@ -92,7 +92,6 @@ essay_prompt = '''provide an outline and preliminary plan for each of the follow
 
 
 feel free to suggest reading material, or any other information worth including.
-
 '''
 
 
