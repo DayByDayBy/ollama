@@ -7,9 +7,9 @@ import streamlit as st
 time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
 model_name = "llama3"
 iterations = 10
-prompt_one = '''tell me something cool, 
-        but please don\'t just wank on about 
-        quantum or immortal jellyfish again'''
+prompt_one = '''\n\n tell me something cool, 
+but please don\'t just wank on about 
+quantum or immortal jellyfish again'''
 
 
 responses = []
