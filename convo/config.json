@@ -1,0 +1,8 @@
+{
+    "model_name": "llama3",
+    "user_messages": [
+        "hey you. how are the apple trees?",
+        "i don't get it",
+        "how do you mean"
+    ]
+}

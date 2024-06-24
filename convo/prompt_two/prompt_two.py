@@ -21,4 +21,25 @@ print(response)
 
 
 
+
+# def iterator(response):
+
+
+
+
+
+
+
+
+
+
+
+#     filename = f'./convo/prompt_two_output_{model_name}_{time_stamp}.txt'
+    
+#     with open(filename, 'w') as file:
+#         file.write(responses)
+#         for idx, response in enumerate(responses):
+#             file.write(f"Response {idx + 1}: {response['response']}\n\n")   
+
+
     

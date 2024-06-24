@@ -45,8 +45,6 @@ def main():
         generate_one(prompt_one)
 
 
-
-
 if __name__ == "__main__":
     main()
 
