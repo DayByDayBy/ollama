@@ -6,8 +6,8 @@ time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
 epochs = 10
 model_name = "gemma"
 
-convo_one = [{}]
-convo_two = [{}]
+convo_one = []
+convo_two = []
 
 def one_into_two():
     response = ollama.chat()
@@ -19,12 +19,12 @@ def two_into_one():
     convo_two.append()
     return convo_two
 
-resulting_convos = [
-    {
-    convo_one[idx], 
-    convo_one['response']
-    }
-                    ]
+# resulting_convos = [
+#     {
+#     convo_one[idx], 
+#     convo_one['response']
+#     }
+#                     ]
 
 
 

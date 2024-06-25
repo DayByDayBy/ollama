@@ -3,22 +3,21 @@ from datetime import datetime
 import ollama
 import streamlit as st
 
-
 time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
-model_name = "llama3"
+model_name = "gemma"
 iterations = 10
-prompt_one = '''\n\n tell me something cool, 
+prompt_two = '''\n\n tell me something cool, 
 but please don\'t just wank on about 
 quantum or immortal jellyfish again'''
 
 
 responses = []
 
-def generate_one(prompt_one):
+def generate_one(prompt_two):
     try:
         response = ollama.generate(
             model = model_name,
-            prompt = prompt_one,
+            prompt = prompt_two,
             stream = False
         )['response']
         responses.append(response)
@@ -39,14 +38,15 @@ def main():
     st.title("badChat")
     st.subheader("we never really talk anymore")
 
-
-    st.code(prompt_one)
+    st.code(prompt_two)
     if st.button('convo one'):
-        generate_one(prompt_one)
-
+        generate_one(prompt_two)
 
 if __name__ == "__main__":
     main()
+
+
+
 
 
 
@@ -63,7 +63,7 @@ if __name__ == "__main__":
 
 
 
-#     filename = f'./convo/prompt_one_output_{model_name}_{time_stamp}.txt'
+#     filename = f'./convo/prompt_two_output_{model_name}_{time_stamp}.txt'
     
 
 
