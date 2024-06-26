@@ -6,9 +6,10 @@ import streamlit as st
 time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
 model_name = "gemma"
 iterations = 10
-prompt_two = '''\n\n tell me something cool, 
-but please don\'t just wank on about 
-quantum or immortal jellyfish again'''
+prompt_two = '''\n\n find a cause, and, 
+make a case for it, as passionately as you 
+can. feel free to include examples and 
+citations where necessary'''
 
 
 responses = []
