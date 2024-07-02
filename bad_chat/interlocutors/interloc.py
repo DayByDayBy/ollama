@@ -37,16 +37,13 @@ def main():
     prompts = {
         "prompt_one": {
             "model": "llama3",
-            "text": '''tell me something cool, 
-but please don't just wank on about 
-quantum or immortal jellyfish again'''
+            "text": '''tell me something cool, but please don't just wank on about quantum or immortal jellyfish again'''
         },
         "prompt_two": {
             "model": "gemma",
-            "text": '''find a cause, and, 
-make a case for it, as passionately as you 
-can. feel free to include examples and 
-citations where necessary'''
+            "text": '''find a cause, and, make a case for it, 
+            as passionately as you can. feel free to include 
+            examples and citations where necessary'''
         }
     }
 
@@ -59,9 +56,9 @@ citations where necessary'''
 
     if st.button('Generate Responses'):
         responses = generate_responses(model_name, prompts[selected_prompt]["text"], iterations)
-        st.success("Responses generated successfully.")
         for i, response in enumerate(responses):
             st.write(f"Response {i+1}: {response}")
+        st.success("Responses generated successfully.")
 
 if __name__ == "__main__":
     main()
