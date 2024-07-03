@@ -55,16 +55,18 @@ def save_transcript(conversation: List[Tuple[str, str]], model_name: str) -> str
             file.write(f"Model: {model_reply}\n\n")
     return filename
 
-def start_conversation(model_one: str, model_two: str, prompt_key: str) -> Tuple[List[Tuple[str, str]], str]:
-    """Start a conversation between two models using the specified prompt."""
-    responses = generate_responses(model_one, PROMPTS[prompt_key], ITERATIONS)
-    conversation = automated_chat(responses, model_two)
+def start_conversation(model_one: str, model_two: str, prompt_key: str, iterations: int) -> Tuple[List[Tuple[str, str]], str]:
+    """Start a conversation between two models using the specified prompt and iterations."""
+    initial_prompt = PROMPTS[prompt_key]
+    responses = generate_responses(model_one, initial_prompt, iterations)
+    conversation = [("Initial Prompt", initial_prompt)] + automated_chat(responses, model_two)
     filename = save_transcript(conversation, f"{model_one}_{model_two}")
     return conversation, filename
 
-def display_conversation(conversation: List[Tuple[str, str]], filename: str) -> Tuple[List[Tuple[str, str]], None]:
+def display_conversation(conversation: List[Tuple[str, str]], filename: str, PROMPTS: dict) -> Tuple[List[Tuple[str, str]], None]:
     """Prepare the conversation for display in the Gradio interface."""
-    chat = [("User", msg) if i % 2 == 0 else ("Model", msg) for i, msg in enumerate([item for sublist in conversation for item in sublist])]
+    chat = [("User", conversation[0][1])]  # Display initial prompt as a user message
+    chat.extend([("Model", msg) if i % 2 == 1 else ("User", msg) for i, (_, msg) in enumerate(conversation[1:])])
     logger.info(f"Transcript saved at: {filename}")
     return chat, None
 
@@ -81,17 +83,25 @@ with gr.Blocks(
           ),   
                css="#chatbot { height: 600px; overflow-y: scroll; }") as demo:
     gr.Markdown("# _badchat")
-    gr.Markdown("we never really talk anymore")
+    gr.Markdown(" we never really talk anymore")
 
     with gr.Row():
-        model_one = gr.Dropdown(choices=MODELS, label="Model One", value=MODELS[0])
-        model_two = gr.Dropdown(choices=MODELS, label="Model Two", value=MODELS[1])
+        model_one = gr.Dropdown(choices=MODELS, label="model one", value=MODELS[0])
+        model_two = gr.Dropdown(choices=MODELS, label="model two", value=MODELS[1])
 
     with gr.Row():
         prompt_select = gr.Radio(choices=list(PROMPTS.keys()), label="Select Prompt", value="cool_fact")
+        prompt_display = gr.Textbox(label="selected prompt", value=PROMPTS['prompt_key'])
+
+    iterations_slider = gr.Slider(minimum=3, maximum=100, value=ITERATIONS, step=1, label="number of iterations")
+
 
     start_btn = gr.Button("Start Conversation")
     chatbot = gr.Chatbot(label="Conversation")
+    
+    def update_prompt_display(prompt_key):
+        return PROMPTS[prompt_key]
+    
 
     start_btn.click(
         start_conversation,
