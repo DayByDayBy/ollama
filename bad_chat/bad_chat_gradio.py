@@ -91,17 +91,21 @@ with gr.Blocks(
 
     with gr.Row():
         prompt_select = gr.Radio(choices=list(PROMPTS.keys()), label="Select Prompt", value="cool_fact")
-        prompt_display = gr.Textbox(label="selected prompt", value=PROMPTS['prompt_key'])
+        prompt_display = gr.Textbox(label="selected prompt", value=PROMPTS['cool_fact'])
 
     iterations_slider = gr.Slider(minimum=3, maximum=100, value=ITERATIONS, step=1, label="number of iterations")
 
 
-    start_btn = gr.Button("Start Conversation")
-    chatbot = gr.Chatbot(label="Conversation")
+    start_btn = gr.Button("start Conversation")
+    chatbot = gr.Chatbot(label="conversation")
     
     def update_prompt_display(prompt_key):
         return PROMPTS[prompt_key]
     
+    prompt_select.change(
+        update_prompt_display, 
+        inputs=[prompt_select], 
+        outputs=[prompt_display])
 
     start_btn.click(
         start_conversation,
@@ -114,4 +118,4 @@ with gr.Blocks(
         outputs=[chatbot, gr.State()]
     )
 
-demo.launch()
+demo.launch(share=True)
