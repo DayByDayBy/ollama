@@ -5,6 +5,26 @@ import os
 from typing import List, Tuple, Optional
 import logging
 
+# custom_css = """
+# .user-message { 
+#     background-color: #e6f3ff; 
+#     border-radius: 15px; 
+#     padding: 10px; 
+#     margin: 5px;
+#     max-width: 70%;
+#     align-self: flex-end;
+# }
+# .model-message { 
+#     background-color: #f0f0f0; 
+#     border-radius: 15px; 
+#     padding: 10px; 
+#     margin: 5px;
+#     max-width: 70%;
+#     align-self: flex-start;
+# }
+# """
+
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -65,7 +85,7 @@ def start_conversation(model_one: str, model_two: str, prompt_key: str, iteratio
 
 def display_conversation(conversation: List[Tuple[str, str]], filename: str, PROMPTS: dict) -> Tuple[List[Tuple[str, str]], None]:
     """Prepare the conversation for display in the Gradio interface."""
-    chat = [("User", conversation[0][1])]  # Display initial prompt as a user message
+    chat = [("User", conversation[0][1])] 
     chat.extend([("Model", msg) if i % 2 == 1 else ("User", msg) for i, (_, msg) in enumerate(conversation[1:])])
     logger.info(f"Transcript saved at: {filename}")
     return chat, None
@@ -118,4 +138,4 @@ with gr.Blocks(
         outputs=[chatbot, gr.State()]
     )
 
-demo.launch(share=True)
+demo.launch()
