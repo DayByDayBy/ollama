@@ -69,14 +69,14 @@ with gr.Blocks() as demo:
     with gr.Row():
         with gr.Column():
             gr.Markdown(f"**Prompt One:**\n```\n{prompt_one}\n```")
-            btn_one = gr.Button("Convo One")
+            btn_one = gr.Button("roll convo")
             chat_one = gr.Chatbot(label="Conversation One")
             btn_one.click(conversation_one, outputs=[chat_one, gr.Textbox()], show_progress=True).then(display_conversation, inputs=[chat_one, gr.Textbox()], outputs=[chat_one, gr.Textbox()])
 
-        with gr.Column():
-            gr.Markdown(f"**Prompt Two:**\n```\n{prompt_two}\n```")
-            btn_two = gr.Button("Convo Two")
-            chat_two = gr.Chatbot(label="Conversation Two")
-            btn_two.click(conversation_two, outputs=[chat_two, gr.Textbox()], show_progress=True).then(display_conversation, inputs=[chat_two, gr.Textbox()], outputs=[chat_two, gr.Textbox()])
+        # with gr.Column():
+        #     gr.Markdown(f"**Prompt Two:**\n```\n{prompt_two}\n```")
+        #     btn_two = gr.Button("Convo Two")
+        #     chat_two = gr.Chatbot(label="Conversation Two")
+        #     btn_two.click(conversation_two, outputs=[chat_two, gr.Textbox()], show_progress=True).then(display_conversation, inputs=[chat_two, gr.Textbox()], outputs=[chat_two, gr.Textbox()])
 
 demo.launch(share=True)

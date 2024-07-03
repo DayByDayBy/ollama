@@ -1,0 +1,29 @@
+User: Error during generation: model 'gemma2' not found, try pulling it first
+Model: A popular error message!
+
+It looks like you're trying to use the `Gemma2` model in a generative AI task (e.g., text-to-text, image-to-image, etc.), but the model is not available or registered.
+
+The solution is simple: **try pulling the Gemma2 model first**. This usually involves running a command that downloads and installs the model.
+
+Here are some possible ways to resolve this issue:
+
+1. **Run `huggingface-cli`**: If you're using the Hugging Face Transformers library, try running the following command:
+```
+huggingface-cli pull gemma2
+```
+This should download and install the Gemma2 model.
+
+2. **Use `transformers`**: If you're using the transformers library (not Hugging Face's CLI), you can try:
+```python
+import transformers
+
+transformers.set_model('gemma2')
+```
+This might not work if the model is not registered or available, but it's worth a try!
+
+3. **Check the model's availability**: Verify that the Gemma2 model exists and is publicly available. You can check the Hugging Face Model Hub or other model repositories to see if the model is listed.
+
+4. **Use an alternative model**: If you can't find or download the Gemma2 model, consider using a different model that performs similarly well for your specific task.
+
+Remember to always check the documentation and requirements for any pre-trained model before using it in your project!
+
