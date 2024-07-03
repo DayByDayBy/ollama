@@ -70,7 +70,7 @@ def display_conversation(conversation: List[Tuple[str, str]], filename: str, PRO
     logger.info(f"Transcript saved at: {filename}")
     return chat, None
 
-# Gradio interface
+# interface stuff 
 with gr.Blocks(
     
     theme=gr.themes.Glass(
@@ -90,13 +90,13 @@ with gr.Blocks(
         model_two = gr.Dropdown(choices=MODELS, label="model two", value=MODELS[1])
 
     with gr.Row():
-        prompt_select = gr.Radio(choices=list(PROMPTS.keys()), label="Select Prompt", value="cool_fact")
+        prompt_select = gr.Radio(choices=list(PROMPTS.keys()), label="select prompt", value="cool_fact")
         prompt_display = gr.Textbox(label="selected prompt", value=PROMPTS['cool_fact'])
 
     iterations_slider = gr.Slider(minimum=3, maximum=100, value=ITERATIONS, step=1, label="number of iterations")
 
 
-    start_btn = gr.Button("start Conversation")
+    start_btn = gr.Button("start conversation")
     chatbot = gr.Chatbot(label="conversation")
     
     def update_prompt_display(prompt_key):
@@ -109,7 +109,7 @@ with gr.Blocks(
 
     start_btn.click(
         start_conversation,
-        inputs=[model_one, model_two, prompt_select],
+        inputs=[model_one, model_two, prompt_select, iterations_slider],
         outputs=[chatbot, gr.State()],
         show_progress=True
     ).then(
