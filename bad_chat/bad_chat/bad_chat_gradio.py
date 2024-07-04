@@ -28,15 +28,17 @@ import logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# congig
-MODELS = ["llama3", "mistral", "internlm2", "gemma2", "internlm2"]
+# config
+MODELS = ["llama3", "mistral", "internlm2", "gemma2", "openhermes", "llava"]
 ITERATIONS = 12
 OUTPUT_DIR = 'output'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 PROMPTS = {
-    "cool_fact": "Tell me something cool, but please don't just wank on about quantum or immortal jellyfish again.",
-    "passionate_cause": "Find a cause, and make a case for it as passionately as you can. Feel free to include examples and citations where necessary."
+    "a_fact": "tell me something cool, but please don't just wank on about quantum or immortal jellyfish again.",
+    "a_cause": "find a cause, and make a case for it as passionately as you can. include examples and citations where necessary.",
+    "a_pitch": "pitch me a movie that you think would be a critical hit. think as far inside or outside the box as you like.",
+    "a_story": "tell me a story that a mother would tell their children"
 }
 
 def generate_responses(model_name: str, prompt: str, iterations: int) -> List[str]:
@@ -84,34 +86,39 @@ def start_conversation(model_one: str, model_two: str, prompt_key: str, iteratio
     return conversation, filename
 
 def display_conversation(conversation: List[Tuple[str, str]], filename: str, PROMPTS: dict) -> Tuple[List[Tuple[str, str]], None]:
-    """Prepare the conversation for display in the Gradio interface."""
-    chat = [("User", conversation[0][1])] 
-    chat.extend([("Model", msg) if i % 2 == 1 else ("User", msg) for i, (_, msg) in enumerate(conversation[1:])])
+    chat = []
+    for i, (role, msg) in enumerate(conversation):
+        if i == 0:
+            chat.append(("System", f"Initial Prompt: {msg}"))
+        else:
+            chat.append(("User" if i % 2 == 1 else "Model", msg))
     logger.info(f"Transcript saved at: {filename}")
     return chat, None
+
 
 # interface stuff 
 with gr.Blocks(
     
     theme=gr.themes.Glass(
 
-    primary_hue=gr.themes.colors.cyan, 
-    secondary_hue=gr.themes.colors.emerald, 
+    primary_hue=gr.themes.colors.neutral, 
+    secondary_hue=gr.themes.colors.zinc, 
     neutral_hue=gr.themes.colors.stone,
-    ).set(button_primary_background_fill="*primary_100",
-          button_secondary_background_fill="*primary_100",
+    ).set(
+          button_primary_background_fill="*primary_100",
+          button_secondary_background_fill="*secondary_100",
           ),   
-               css="#chatbot { height: 600px; overflow-y: scroll; }") as demo:
+               css="#chatbot { height: 500px; overflow-y: scroll; }") as demo:
     gr.Markdown("# _badchat")
     gr.Markdown(" we never really talk anymore")
 
     with gr.Row():
-        model_one = gr.Dropdown(choices=MODELS, label="model one", value=MODELS[0])
-        model_two = gr.Dropdown(choices=MODELS, label="model two", value=MODELS[1])
+        model_one = gr.Dropdown(choices=MODELS, label="model one: iterative generation", value=MODELS[0])
+        model_two = gr.Dropdown(choices=MODELS, label="model two: responding to pre-generated", value=MODELS[1])
 
     with gr.Row():
-        prompt_select = gr.Radio(choices=list(PROMPTS.keys()), label="select prompt", value="cool_fact")
-        prompt_display = gr.Textbox(label="selected prompt", value=PROMPTS['cool_fact'])
+        prompt_select = gr.Radio(choices=list(PROMPTS.keys()), label="select prompt", value="a_fact")
+        prompt_display = gr.Textbox(label="selected prompt", value=PROMPTS['a_fact'])
 
     iterations_slider = gr.Slider(minimum=3, maximum=100, value=ITERATIONS, step=1, label="number of iterations")
 
