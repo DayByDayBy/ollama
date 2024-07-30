@@ -5,41 +5,22 @@ import os
 from typing import List, Tuple, Optional
 import logging
 
-# custom_css = """
-# .user-message { 
-#     background-color: #e6f3ff; 
-#     border-radius: 15px; 
-#     padding: 10px; 
-#     margin: 5px;
-#     max-width: 70%;
-#     align-self: flex-end;
-# }
-# .model-message { 
-#     background-color: #f0f0f0; 
-#     border-radius: 15px; 
-#     padding: 10px; 
-#     margin: 5px;
-#     max-width: 70%;
-#     align-self: flex-start;
-# }
-# """
-
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # config
-MODELS = ["llama3", "mistral", "internlm2", "gemma2", "openhermes", "llava"]
+MODELS = ["llama3", "mistral", "internlm2", "gemma2", "openhermes", "llava", "falcon2", "alfred", "notus", "notux", "dbrx"]
 ITERATIONS = 12
-OUTPUT_DIR = 'output'
+OUTPUT_DIR = 'bad_chat/output'
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 PROMPTS = {
-    "a_fact": "tell me something cool, but please don't just wank on about quantum or immortal jellyfish again.",
-    "a_cause": "find a cause, and make a case for it as passionately as you can. include examples and citations where necessary.",
-    "a_pitch": "pitch me a movie that you think would be a critical hit. think as far inside or outside the box as you like.",
-    "a_story": "tell me a story that a mother would tell their children"
-}
+    "a fact": "tell me something cool, but please don't just wank on about quantum or immortal jellyfish again.",
+    "a cause": "find a cause, and make a case for it as passionately as you can. include examples and citations where necessary.",
+    "a pitch": "pitch me a movie that you think would be a critical hit. think as far inside or outside the box as you like.",
+    "a story": "tell me a story that a mother might tell their children",
+    }
 
 def generate_responses(model_name: str, prompt: str, iterations: int) -> List[str]:
     """Generate responses using the specified model and prompt."""
@@ -85,7 +66,7 @@ def start_conversation(model_one: str, model_two: str, prompt_key: str, iteratio
     filename = save_transcript(conversation, f"{model_one}_{model_two}")
     return conversation, filename
 
-def display_conversation(conversation: List[Tuple[str, str]], filename: str, PROMPTS: dict) -> Tuple[List[Tuple[str, str]], None]:
+def display_conversation(conversation: List[Tuple[str, str]], filename: str) -> Tuple[List[Tuple[str, str]], None]:
     chat = []
     for i, (role, msg) in enumerate(conversation):
         if i == 0:
@@ -117,8 +98,8 @@ with gr.Blocks(
         model_two = gr.Dropdown(choices=MODELS, label="model two: responding to pre-generated", value=MODELS[1])
 
     with gr.Row():
-        prompt_select = gr.Radio(choices=list(PROMPTS.keys()), label="select prompt", value="a_fact")
-        prompt_display = gr.Textbox(label="selected prompt", value=PROMPTS['a_fact'])
+        prompt_select = gr.Radio(choices=list(PROMPTS.keys()), label="select prompt", value="a fact")
+        prompt_display = gr.Textbox(label="selected prompt", value=PROMPTS['a fact'])
 
     iterations_slider = gr.Slider(minimum=3, maximum=100, value=ITERATIONS, step=1, label="number of iterations")
 
@@ -145,4 +126,4 @@ with gr.Blocks(
         outputs=[chatbot, gr.State()]
     )
 
-demo.launch()
+demo.launch(share=True)

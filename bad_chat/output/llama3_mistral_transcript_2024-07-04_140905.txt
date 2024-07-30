@@ -1,0 +1,6 @@
+User: Initial Prompt
+Model: tell me something cool, but please don't just wank on about quantum or immortal jellyfish again.
+
+User: Error during generation: [Errno 61] Connection refused
+Model: Error during chat: [Errno 61] Connection refused
+

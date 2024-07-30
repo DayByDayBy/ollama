@@ -23,8 +23,6 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 time_stamp = datetime.now().strftime("%Y%m%d_%H%M")
 model_name = "llama3"
 
-
-
 lucier_quote = '''I am sitting in a room different 
 from the one you are in now. I am recording the sound 
 of my speaking voice and I am going to play it back 
